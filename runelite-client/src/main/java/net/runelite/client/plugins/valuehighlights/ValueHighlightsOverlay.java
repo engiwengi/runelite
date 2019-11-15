@@ -67,19 +67,21 @@ public class ValueHighlightsOverlay extends WidgetItemOverlay {
             return;
         }
 
+        final int qty = itemWidget.getQuantity();
+
+        if (qty == 0) {
+            return;
+        }
+
         final int id = getNotedId(itemId);
         final int gePrice = getGEPrice(id);
-        final Color color = getColor(gePrice * widget.getItemQuantity());
+        final Color color = getColor(gePrice * qty);
 
-        {
-            if (color != null) {
-                Rectangle bounds = itemWidget.getCanvasBounds();
-                bounds.grow(2, 2);
-                graphics.setStroke(new BasicStroke(1));
-                graphics.setColor(color);
-                graphics.draw(bounds);
-            }
-
+        if (color != null) {
+            Rectangle bounds = widget.getBounds();
+            graphics.setStroke(new BasicStroke(1));
+            graphics.setColor(color);
+            graphics.fillOval(bounds.x, bounds.y, bounds.height, bounds.height);
         }
     }
 

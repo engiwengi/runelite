@@ -32,6 +32,7 @@ import java.awt.Color;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.Range;
 
 @ConfigGroup("valuehighlights")
 public interface ValueHighlightsConfig extends Config {
@@ -45,53 +46,62 @@ public interface ValueHighlightsConfig extends Config {
         return true;
     }
 
-    @ConfigItem(keyName = "getHighlightLow", name = "Low Value Highlight Color", description = "Choose the color of the low highlight.", position = 2)
-    default Color getHighlightLow() {
-        return Color.BLUE;
+
+    @Range(
+            max = 255
+    )
+    @ConfigItem(keyName = "getAlpha", name = "Transparency", description = "Choose the transparency", position = 2)
+    default int getAlpha() {
+        return 30;
     }
 
-    @ConfigItem(keyName = "getValueLow", name = "Low Value Price", description = "Choose the minimum price of the low value.", position = 3)
+    @ConfigItem(keyName = "getHighlightLow", name = "Low Value Highlight Color", description = "Choose the color of the low highlight.", position = 3)
+    default Color getHighlightLow() {
+        return new Color(0, 0, 255, getAlpha());
+    }
+
+    @ConfigItem(keyName = "getValueLow", name = "Low Value Price", description = "Choose the minimum price of the low value.", position = 4)
     default int getValueLow() {
         return 50000;
     }
 
-    @ConfigItem(keyName = "getHighlightMedium", name = "Medium Value Highlight Color", description = "Choose the color of the medium highlight.", position = 4)
+    @ConfigItem(keyName = "getHighlightMedium", name = "Medium Value Highlight Color", description = "Choose the color of the medium highlight.", position = 5)
     default Color getHighlightMedium() {
-        return Color.GREEN;
+        return new Color(0, 255, 0, getAlpha());
     }
 
-    @ConfigItem(keyName = "getValueMedium", name = "Medium Value Price", description = "Choose the minimum price of the medium value.", position = 5)
+    @ConfigItem(keyName = "getValueMedium", name = "Medium Value Price", description = "Choose the minimum price of the medium value.", position = 6)
     default int getValueMedium() {
         return 250000;
     }
 
-    @ConfigItem(keyName = "getHighlightHigh", name = "High Value Highlight Color", description = "Choose the color of the high highlight.", position = 6)
+    @ConfigItem(keyName = "getHighlightHigh", name = "High Value Highlight Color", description = "Choose the color of the high highlight.", position = 7)
     default Color getHighlightHigh() {
-        return Color.YELLOW;
+        return new Color(0, 255, 255, getAlpha());
     }
 
-    @ConfigItem(keyName = "getValueHigh", name = "High Value Price", description = "Choose the minimum price of the high value.", position = 7)
+    @ConfigItem(keyName = "getValueHigh", name = "High Value Price", description = "Choose the minimum price of the high value.", position = 8)
     default int getValueHigh() {
         return 1250000;
     }
 
-    @ConfigItem(keyName = "getHighlightInsane", name = "Insane Value Highlight Color", description = "Choose the color of the insane highlight.", position = 8)
+    @ConfigItem(keyName = "getHighlightInsane", name = "Insane Value Highlight Color", description = "Choose the color of the insane highlight.", position = 9)
     default Color getHighlightInsane() {
-        return Color.MAGENTA;
+        return new Color(255, 0, 255, getAlpha());
     }
 
-    @ConfigItem(keyName = "getValueInsane", name = "Insane Value Price", description = "Choose the minimum price of the insane value.", position = 9)
+    @ConfigItem(keyName = "getValueInsane", name = "Insane Value Price", description = "Choose the minimum price of the insane value.", position = 10)
     default int getValueInsane() {
         return 6250000;
     }
 
-    @ConfigItem(keyName = "doHighlightNull", name = "Highlight Valueless Items", description = "Show highlight on valueless items.", position = 10)
+    @ConfigItem(keyName = "doHighlightNull", name = "Highlight Valueless Items", description = "Show highlight on valueless items.", position = 11)
     default boolean doHighlightNull() {
         return false;
     }
 
-    @ConfigItem(keyName = "getHighlightNull", name = "Valueless Highlight Color", description = "Choose the color of the valueless highlight.", hidden = true, unhide = "doHighlightNull", position = 11)
+    @ConfigItem(keyName = "getHighlightNull", name = "Valueless Highlight Color", description = "Choose the color of the valueless highlight.", hidden = true, unhide = "doHighlightNull", position = 12)
     default Color getHighlightNull() {
-        return Color.GRAY;
+        return new Color(100, 100, 100, getAlpha());
     }
 }

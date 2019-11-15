@@ -90,8 +90,7 @@ public class ValueHighlightsPlugin extends Plugin {
     private EventBus eventBus;
 
     @Provides
-    ValueHighlightsConfig getConfig(ConfigManager configManager)
-    {
+    ValueHighlightsConfig getConfig(ConfigManager configManager) {
         return configManager.getConfig(ValueHighlightsConfig.class);
     }
 
@@ -156,14 +155,18 @@ public class ValueHighlightsPlugin extends Plugin {
         this.showBank = config.showBank();
         this.showInventory = config.showInventory();
         this.doHighlightNull = config.doHighlightNull();
-        this.highlightNull = config.getHighlightNull();
-        this.highlightLow = config.getHighlightLow();
-        this.highlightMedium = config.getHighlightMedium();
-        this.highlightHigh = config.getHighlightHigh();
-        this.highlightInsane = config.getHighlightInsane();
+        this.highlightNull = colorWithAlpha(config.getHighlightNull(), config.getAlpha());
+        this.highlightLow = colorWithAlpha(config.getHighlightLow(), config.getAlpha());
+        this.highlightMedium = colorWithAlpha(config.getHighlightMedium(), config.getAlpha());
+        this.highlightHigh = colorWithAlpha(config.getHighlightHigh(), config.getAlpha());
+        this.highlightInsane = colorWithAlpha(config.getHighlightInsane(), config.getAlpha());
         this.valueLow = config.getValueLow();
         this.valueMedium = config.getValueMedium();
         this.valueHigh = config.getValueHigh();
         this.valueInsane = config.getValueInsane();
+    }
+
+    private Color colorWithAlpha(Color color, int alpha) {
+        return new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
     }
 }
